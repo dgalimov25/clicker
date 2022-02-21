@@ -7,45 +7,28 @@
     <title>my_game</title>
     <style>
         * {
-            padding: 0;
-            margin: 0;
             font-family: 'Courier New', Courier, monospace;
             text-decoration: none;
-            font_size: 12px;
         }
         #menu {
             border: 1px solid #000;
         }
         #button {
-            width: 200px;
-            height: 200px;
-            position: absolute;
-            bottom: 20px;
-            left: calc((100% - 200px) / 2);
+            width: 120px;
+            height: 120px;
             border: 1px solid #000;
             border-radius: 90px;
             background-color: lightgray;
-            transition: all 100ms ease-in-out;
-        }
-        #button:active {
-            transform: scale(1.1);
         }
         #menu > div {
-            margin: 20px;
-            padding: 10px;
             border: 1px solid #000;
         }
         #stats {
             border: 1px solid #000;
         }
         #items > div {
-            margin: 20px;
-            padding: 10px;
             border: 1px solid #000;
             display: inline-block;
-        }
-        span {
-            font-weight: bold;
         }
     </style>
 </head>
@@ -58,12 +41,7 @@
         </div>
         <div id="shop">
             <h2>Магазин</h2>
-            
             <div id="items"></div>
-        </div>
-        <div>
-            <h2>Друзья</h2>
-            <span id="fr"></span>
         </div>
         <div>
             <h2>Автокликеры</h2>
@@ -103,8 +81,6 @@
                 level++
             }
             update()
-            if (score == 20) selfr()
-            else if (score == 40) invit()
         }
 
         items.forEach((item, i) => {
@@ -122,21 +98,6 @@
                 score -= item.sale
                 update()
             }
-        }
-
-        var fr = document.getElementById('fr')
-        vkBridge.send('VKWebAppInit')
-        function selfr() {
-            vkBridge.send('VKWebAppGetFriends').then(res => {
-                var user = users[0]
-                var name = user.first_name
-                var surname = user.last_name
-                var a = user.photo_200
-                fr.innerHTML = `<img src="${a}"><hr><h4>Имя: ${name}<br>Фамилия: ${surname}<br></h4>`
-            })
-        }
-        function invit() {
-            vkBridge.send('VKWebAppShowInviteBox')
         }
     </script>
 </body>
