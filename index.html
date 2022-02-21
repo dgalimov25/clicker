@@ -12,12 +12,15 @@
             font-family: 'Courier New', Courier, monospace;
             text-decoration: none;
         }
+        #menu {
+            border: 1px solid #000;
+        }
         #button {
             width: 200px;
             height: 200px;
             position: absolute;
-            right: 50px;
-            top: calc(100% - 250px);
+            bottom: 20px;
+            left: calc((100% - 200px) / 2);
             border: 1px solid #000;
             border-radius: 90px;
             background-color: lightgray;
@@ -26,7 +29,7 @@
         #button:active {
             transform: scale(1.1);
         }
-        .menu {
+        #menu > div {
             margin: 20px;
             padding: 10px;
             border: 1px solid #000;
@@ -37,18 +40,19 @@
     </style>
 </head>
 <body>
-    <div id="content">
-        <div id="button"></div>
-        <div class="menu" id="stats">
+    <div id="menu">
+        <div id="stats">
             <h2>Статистика</h2>
             Счет: <span id="score">0</span><br>
             Уровень: <span id="level">0</span><br>
             До след.уровная: <span id="next-score">10</span>
         </div>
-        <div class="menu" id="shop">
+        <div id="shop">
             <h2>Магазин</h2>
         </div>
     </div>
+
+    <button id="button"></button>
 
     <script>
         var eButton = document.getElementById('button')
