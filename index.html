@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>my_game</title>
+</head>
+<body>
+    <div style="font-family: 'Courier New', Courier, monospace;">
+        <!-- кнопка -->
+        <div id="button" style="border-radius: 90px; border: 1px solid #000; width: 200px; height: 200px; background-color: lightgray; transition: all 100ms;">
+        </div><hr>
+        
+        <!-- счет -->
+        <div style="border: 1px solid #000;">Счет:
+            <span id="score">0</span>
+        </div><br>
+        
+        <!-- уровень -->
+        <div style="border: 1px solid #000;">Уровень:
+            <span id="level">0</span>
+        </div><br>
+    
+        <!-- до след.уровня -->
+        <div style="border: 1px solid #000;">До след.уровная:
+            <span id="next-score">10</span>
+        </div>
+    </div>
+
+    <script>
+        var eButton = document.getElementById('button')
+        var eScore = document.getElementById('score')
+        var eLevel = document.getElementById('level')
+        var eNextScore = document.getElementById('next-score')
+
+        var total_score = 0
+        var score = 0
+        var level = 0
+
+        eButton.onclick = function() {
+            total_score++
+            score++
+            if (score >= 10) {
+                score = 0
+                level++
+            }
+            eScore.innerHTML = total_score
+            eLevel.innerHTML = level
+            eNextScore.innerHTML = 10 - score
+        }
+    </script>
+</body>
+</html>
