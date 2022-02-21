@@ -86,8 +86,12 @@
 
         var fr = document.getElementById('fr')
         vkBridge.send('VKWebAppInit')
-        vkBridge.send('VKWebAppGetFriends', {}).then(res => {
-            fr.innerHTML = res.users
+        vkBridge.send('VKWebAppGetFriends').then(res => {
+            var user = users[0]
+            var name = user.first_name
+            var surname = user.last_name
+            var a = user.photo_200
+            fr.innerHTML = `<img src="${a}"><hr><h4>Имя: ${name}<br>Фамилия: ${surname}<br></h4>`
         })
     </script>
 </body>
