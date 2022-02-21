@@ -8,10 +8,6 @@
 </head>
 <body>
     <div style="font-family: 'Courier New', Courier, monospace;">
-        <!-- кнопка -->
-        <div id="button" style="border-radius: 90px; border: 1px solid #000; width: 200px; height: 200px; background-color: lightgray; transition: all 100ms;">
-        </div><hr>
-        
         <!-- счет -->
         <div style="border: 1px solid #000;">Счет:
             <span id="score">0</span>
@@ -25,6 +21,10 @@
         <!-- до след.уровня -->
         <div style="border: 1px solid #000;">До след.уровная:
             <span id="next-score">10</span>
+        </div><hr>
+
+        <!-- кнопка -->
+        <div id="button" style="border-radius: 90px; border: 1px solid #000; width: 200px; height: 200px; background-color: lightgray; transition: all 100ms;">
         </div>
     </div>
 
@@ -39,6 +39,7 @@
         var level = 0
 
         eButton.onclick = function() {
+            // eButton.
             total_score++
             score++
             if (score >= 10) {
