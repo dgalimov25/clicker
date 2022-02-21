@@ -37,6 +37,15 @@
         #stats {
             border: 1px solid #000;
         }
+        #items > div {
+            margin: 20px;
+            padding: 10px;
+            border: 1px solid #000;
+            display: inline-block;
+        }
+        span {
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
@@ -45,7 +54,6 @@
             <h2>Статистика</h2>
             Счет: <span id="score">0</span><br>
             Уровень: <span id="level">0</span><br>
-            До след.уровная: <span id="next-score">10</span>
         </div>
         <div id="shop">
             <h2>Магазин</h2>
@@ -56,6 +64,9 @@
             <h2>Друзья</h2>
             <span id="fr"></span>
         </div>
+        <div>
+            <h2>Автокликеры</h2>
+        </div>
     </div>
 
     <button id="button"></button>
@@ -65,34 +76,67 @@
         var eButton = document.getElementById('button')
         var eScore = document.getElementById('score')
         var eLevel = document.getElementById('level')
-        var eNextScore = document.getElementById('next-score')
         var eItems = document.getElementById('items')
+        var items = [{
+            'name': 'Автокликер ур.1',
+            'sale': 256
+        }, {
+            'name': 'Автокликер ур.2',
+            'sale': 768
+        }, {
+            'name': 'Автокликер ур.3',
+            'sale': 1536
+        }]
 
-        var total_score = 0
         var score = 0
         var level = 0
 
+        function update() {
+            eScore.innerHTML = score
+            eLevel.innerHTML = level
+        }
+
         eButton.onclick = function() {
-            total_score++
-            score++
+            score += 10
             if (score >= 10) {
-                score = 0
                 level++
             }
-            eScore.innerHTML = total_score
-            eLevel.innerHTML = level
-            eNextScore.innerHTML = 10 - score
+            update()
+            if (score == 20) selfr()
+            else if (score == 40) invit()
+        }
+
+        items.forEach((item, i) => {
+            var eItem = document.createElement('div')
+            eItem.innerHTML = `<h3>${item.name}</h3><br>Цена: <span>${item.sale}</span>`
+            eItem.id = 'item' + i
+            eItems.appendChild(eItem)
+            eItem.onclick = () => buyItem(i)
+        })
+
+        function buyItem(i) {
+            var item = items[i]
+            if (item.sale > score) return alert('У вас недостаточно очков!')
+            if (confirm(`Вы хотите купить "${item.name}"`)) {
+                score -= item.sale
+                update()
+            }
         }
 
         var fr = document.getElementById('fr')
         vkBridge.send('VKWebAppInit')
-        vkBridge.send('VKWebAppGetFriends').then(res => {
-            var user = res.users[0]
-            var name = user.first_name
-            var surname = user.last_name
-            var a = user.photo_200
-            fr.innerHTML = `<img src="${a}"><hr><h4>Имя: ${name}<br>Фамилия: ${surname}<br></h4>`
-        })
+        function selfr() {
+            vkBridge.send('VKWebAppGetFriends').then(res => {
+                var user = users[0]
+                var name = user.first_name
+                var surname = user.last_name
+                var a = user.photo_200
+                fr.innerHTML = `<img src="${a}"><hr><h4>Имя: ${name}<br>Фамилия: ${surname}<br></h4>`
+            })
+        }
+        function invit() {
+            vkBridge.send('VKWebAppShowInviteBox')
+        }
     </script>
 </body>
 </html>
