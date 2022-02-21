@@ -49,16 +49,24 @@
         </div>
         <div id="shop">
             <h2>Магазин</h2>
+            
+            <div id="items"></div>
+        </div>
+        <div>
+            <h2>Друзья</h2>
+            <span id="fr"></span>
         </div>
     </div>
 
     <button id="button"></button>
 
+    <script src="https://unpkg.com/@vkontakte/vk-bridge@2.5.3/dist/browser.min.js"></script>
     <script>
         var eButton = document.getElementById('button')
         var eScore = document.getElementById('score')
         var eLevel = document.getElementById('level')
         var eNextScore = document.getElementById('next-score')
+        var eItems = document.getElementById('items')
 
         var total_score = 0
         var score = 0
@@ -75,6 +83,12 @@
             eLevel.innerHTML = level
             eNextScore.innerHTML = 10 - score
         }
+
+        var fr = document.getElementById('fr')
+        vkBridge.send('VKWebAppInit')
+        vkBridge.send('VKWebAppGetFriends', {}).then(res => {
+            fr.innerHTML = res.users
+        })
     </script>
 </body>
 </html>
