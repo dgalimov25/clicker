@@ -48,7 +48,10 @@ async function main() {
         }
     }
 
-    document.cookie = "name=user"
-    console.log(document.cookie)
+    var _score = document.cookie.match(/score=(.+?)(;|$)/)
+    var _level = document.cookie.match(/level=(.+?)(;|$)/)
+    if (_score > 0) score = _score
+    if (_level > 0) level = _level
+    document.cookie = `score=${score};level=${level}`
 }
 main()
