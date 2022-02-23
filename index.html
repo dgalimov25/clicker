@@ -5,38 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>my_game</title>
-    <style>
-      * {
-        font-family: 'Courier New', Courier, monospace;
-        text-decoration: none;
-        margin: 0;
-        padding: 0;
-      }
-      #button {
-          width: 100%;
-          height: 200px;
-          border: 5px solid #000;
-          border-radius: 20px;
-          background-color: orange;
-      }
-      #menu > div {
-          padding: 5px;
-          margin: 5px;
-          border: 1px solid #000;
-      }
-      #stats {
-          border: 1px solid #000;
-      }
-      #items > div {
-          margin: 5px;
-          padding: 5px;
-          border: 1px solid #000;
-          display: inline-block;
-      }
-      #clicktext {
-          font-size: 80;
-      }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div id="menu">
@@ -53,66 +22,11 @@
             <h2>Автокликеры</h2>
         </div>
     </div>
+    
+    <button id="button">
+        <h1 id="clicktext">CLICK</h1>
+    </button>
 
-    <button id="button"><h1 id="clicktext">CLICK</h1></button>
-
-    <script src="https://unpkg.com/@vkontakte/vk-bridge@2.5.3/dist/browser.min.js"></script>
-  <script>
-    var eButton = document.getElementById('button')
-    var eScore = document.getElementById('score')
-    var eLevel = document.getElementById('level')
-    var eItems = document.getElementById('items')
-    var items = [{
-        'name': 'Автокликер ур.1',
-        'sale': 2000,
-        'level': 10
-    }, {
-        'name': 'Автокликер ур.2',
-        'sale': 7600,
-        'level': 20
-    }, {
-        'name': 'Автокликер ур.3',
-        'sale': 153000,
-        'level': 30
-    }]
-
-    var score = 0
-    var level = 0
-    var nextLevel = 10
-
-    function update() {
-        eScore.innerHTML = score
-        eLevel.innerHTML = level
-    }
-
-    eButton.onclick = function() {
-        score += 1
-        if (score >= nextLevel) {
-            level++
-            nextLevel *= 2
-        }
-        update()
-    }
-
-    items.forEach((item, i) => {
-        var eItem = document.createElement('div')
-        eItem.innerHTML = `<h4>${item.name}</h4>Цена: <span>${item.sale}</span>`
-        eItem.id = 'item' + i
-        eItems.appendChild(eItem)
-        eItem.onclick = () => buyItem(i)
-    })
-
-    function buyItem(i) {
-        var item = items[i]
-        if (item.level > level) {
-            return alert(`Этот предмет доступен с ${item.level} уровня!`)
-        } else if (item.sale > score) {
-            alert('У вас недостаточно очков!')
-        } else if (confirm(`Вы хотите купить "${item.name}"?`)) {
-            score -= item.sale
-            update()
-        }
-    }
-  </script>
+    <script src="script.js"></script>
 </body>
 </html>
