@@ -9,16 +9,15 @@ async function main() {
 
     var _score = Number(getCookie('score'))
     var _level = Number(getCookie('level'))
-    var score = _score > 0 ? _score : 0
-    var level = _level > 0 ? _level : 0
-    
-    update()
-    
+    var score = _score | 0
+    var level = _level | 0
+
     function update() {
         eScore.innerHTML = score
         eLevel.innerHTML = level
-        document.cookie = `score=${score};level=${level}`
-    }
+        document.cookie = `score=${score}`
+        document.cookie = `level=${level}`
+    } update()
 
     function getCookie(name) {
         var matches = document.cookie.match(new RegExp("(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"))
@@ -33,7 +32,8 @@ async function main() {
 
     eButton.onclick = function () {
         score++
-        if (score == 10) level++
+        var nextLevel = (level + 1) * 10
+        if (score > nextLevel) level++
         update()
     }
 
@@ -56,5 +56,4 @@ async function main() {
             update()
         }
     }
-}
-main()
+} main()
