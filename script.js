@@ -6,12 +6,23 @@ async function main() {
 
     var config = await getConfig()
     var items = config.items
-    var score = 0
-    var level = 0
 
+    var _score = Number(getCookie('score'))
+    var _level = Number(getCookie('level'))
+    var score = _score > 0 ? _score : 0
+    var level = _level > 0 ? _level : 0
+    
+    update()
+    
     function update() {
         eScore.innerHTML = score
         eLevel.innerHTML = level
+        document.cookie = `score=${score};level=${level}`
+    }
+
+    function getCookie(name) {
+        var matches = document.cookie.match(new RegExp("(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"))
+        return matches ? decodeURIComponent(matches[1]) : undefined
     }
 
     async function getConfig() {
@@ -22,9 +33,7 @@ async function main() {
 
     eButton.onclick = function () {
         score++
-        if (score == 10) {
-            level++
-        }
+        if (score == 10) level++
         update()
     }
 
@@ -47,11 +56,5 @@ async function main() {
             update()
         }
     }
-
-    var _score = document.cookie.match(/score=(.+?)(;|$)/)
-    var _level = document.cookie.match(/level=(.+?)(;|$)/)
-    if (_score > 0) score = _score
-    if (_level > 0) level = _level
-    document.cookie = `score=${score};level=${level}`
 }
 main()
