@@ -32,8 +32,8 @@ async function main() {
 
     eButton.onclick = function () {
         score++
-        var nextLevel = (level + 1) * 10
-        if (score > nextLevel) level++
+        var nextLevel = (level + 1) * 10 * level * 0.3
+        if (score >= nextLevel) level++
         update()
     }
 
