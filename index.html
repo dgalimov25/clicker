@@ -28,7 +28,7 @@
     </button>
 
     <script>
-        async function main() {
+async function main() {
     var eButton = document.getElementById('button')
     var eScore = document.getElementById('score')
     var eLevel = document.getElementById('level')
@@ -37,8 +37,8 @@
     var config = await getConfig()
     var items = config.items
 
-    var _score = getCookie('score').toNumber()
-    var _level = getCookie('level').toNumber()
+    var _score = Number(getCookie('score'))
+    var _level = Number(getCookie('level'))
     var score = _score > 0 ? _score : 0
     var level = _level > 0 ? _level : 0
     console.log(score, _score)
