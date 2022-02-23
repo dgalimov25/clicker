@@ -28,7 +28,7 @@
     </button>
 
     <script>
-async function main() {
+        async function main() {
     var eButton = document.getElementById('button')
     var eScore = document.getElementById('score')
     var eLevel = document.getElementById('level')
@@ -41,6 +41,7 @@ async function main() {
     var _level = document.cookie.match(/level=(.+?)(;|$)/)
     var score = _score > 0 ? _score : 0
     var level = _level > 0 ? _level : 0
+    console.log(score, _score)
 
     function update() {
         eScore.innerHTML = score
