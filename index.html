@@ -28,7 +28,7 @@
     </button>
 
     <script>
-    async function main() {
+async function main() {
     var eButton = document.getElementById('button')
     var eScore = document.getElementById('score')
     var eLevel = document.getElementById('level')
@@ -36,8 +36,11 @@
 
     var config = await getConfig()
     var items = config.items
-    var score = 0
-    var level = 0
+    
+    var _score = document.cookie.match(/score=(.+?)(;|$)/)
+    var _level = document.cookie.match(/level=(.+?)(;|$)/)
+    var score = _score > 0 ? score : 0
+    var level = _level > 0 ? level : 0
 
     function update() {
         eScore.innerHTML = score
@@ -53,9 +56,7 @@
 
     eButton.onclick = function () {
         score++
-        if (score == 10) {
-            level++
-        }
+        if (score == 10) level++
         update()
     }
 
@@ -79,12 +80,10 @@
         }
     }
 
-    var _score = document.cookie.match(/score=(.+?)(;|$)/)
-    var _level = document.cookie.match(/level=(.+?)(;|$)/)
     if (_score > 0) score = _score
     if (_level > 0) level = _level
-    }
-    main()
+}
+main()
     </script>
 </body>
 </html>
