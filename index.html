@@ -36,9 +36,9 @@
 
     var config = await getConfig()
     var items = config.items
-    
-    var _score = document.cookie.match(/score=(.+?)(;|$)/)
-    var _level = document.cookie.match(/level=(.+?)(;|$)/)
+
+    var _score = getCookie('score').toNumber()
+    var _level = getCookie('level').toNumber()
     var score = _score > 0 ? _score : 0
     var level = _level > 0 ? _level : 0
     console.log(score, _score)
@@ -48,7 +48,11 @@
         eLevel.innerHTML = level
         document.cookie = `score=${score};level=${level}`
     }
-    update()
+
+    function getCookie(name) {
+        var matches = document.cookie.match(new RegExp("(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"))
+        return matches ? decodeURIComponent(matches[1]) : undefined
+    }
 
     async function getConfig() {
         var res1 = await fetch('https://raw.githubusercontent.com/dgalimov25/clicker/main/config.json')
